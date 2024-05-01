@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from src.schemas import usuario
 from src.infra.sqlalchemy.models import models
@@ -14,3 +15,8 @@ class RepositorioUsuario:
         self.db.commit()
         self.db.refresh(db_usuario)
         return db_usuario
+    
+    def obter_por_username(self, username: str):
+        stmt = select(models.Usuario).where(models.Usuario.username == username)
+        usuario = self.db.execute(stmt)
+        return usuario.scalars().first()
