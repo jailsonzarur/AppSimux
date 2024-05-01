@@ -6,4 +6,14 @@ class Usuario(BaseModel):
     username: str
     senha: str
     simulados: List[Simulado] = []
-    
+
+    class Config:
+        from_attributes = True
+
+class LoginData(BaseModel):
+    username: str
+    senha: str
+
+class LoginSucesso(BaseModel):
+    username: str
+    acess_token: str
