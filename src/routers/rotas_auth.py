@@ -36,4 +36,4 @@ def signin(login_data: LoginData, db: Session = Depends(get_bd)):
     token_jwt = token_provider.criar_acess_token({'sub': usuario_localizado.username})
     return LoginSucesso(username=usuario_localizado.username, acess_token=token_jwt)
 
-    
+   
