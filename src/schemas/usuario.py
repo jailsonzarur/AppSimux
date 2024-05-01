@@ -18,3 +18,4 @@ class LoginData(BaseModel):
 class LoginSucesso(BaseModel):
     username: str
     acess_token: str
+

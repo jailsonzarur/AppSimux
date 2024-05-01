@@ -21,3 +21,4 @@ class RepositorioUsuario:
         stmt = select(models.Usuario).where(models.Usuario.username == username)
         usuario = self.db.execute(stmt)
         return usuario.scalars().first()
+    

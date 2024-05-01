@@ -14,4 +14,5 @@ class RepositorioSimulado:
         self.db.commit()
         self.db.refresh(db_simulado)
         return db_simulado
+
     
