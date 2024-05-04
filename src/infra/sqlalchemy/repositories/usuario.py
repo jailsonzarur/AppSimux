@@ -11,7 +11,6 @@ class RepositorioUsuario:
 
     def criar(self, usuario: usuario.Usuario):
         db_usuario = models.Usuario(username= usuario.username, senha= hash_provider.gerar_hash(usuario.senha))
-
         self.db.add(db_usuario)
         self.db.commit()
         self.db.refresh(db_usuario)

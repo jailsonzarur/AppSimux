@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends
-from src.routers import rotas_auth, rotas_simulados
+from src.routers import rotas_auth, rotas_simulados, rotas_erros
 
 
 app = FastAPI()
@@ -9,3 +9,6 @@ app.include_router(rotas_auth.router, prefix='/auth')
 
 #ROTAS SIMULADOS
 app.include_router(rotas_simulados.router)
+
+#ROTAS ERROS
+app.include_router(rotas_erros.router)

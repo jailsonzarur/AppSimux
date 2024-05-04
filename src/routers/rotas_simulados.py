@@ -13,3 +13,8 @@ router = APIRouter()
 def cadastrar_simulados(simulado: Simulado, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     simulado = RepositorioSimulado(db).criar(simulado, usuario.id)
     return simulado
+
+@router.get('/simulados')
+def listar_simulados(usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+       simulados = RepositorioSimulado(db).listar(usuario.id)
+       return simulados
