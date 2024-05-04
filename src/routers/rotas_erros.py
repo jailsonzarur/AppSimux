@@ -19,3 +19,13 @@ def cadastrar_erros(simulado_id: int, erro: Erro, usuario: Usuario = Depends(obt
 def listar_erros(simulado_id: int, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     erros = RepositorioErro(db).listar(simulado_id)
     return erros
+
+@router.get('/simulados/erros/bloco/{bloco}')
+def listar_erros(bloco: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+    erros = RepositorioErro(db).listar_por_bloco(bloco)
+    return erros
+
+@router.get('/simulados/erros/bloco/{bloco}')
+def listar_erros(bloco: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+    erros = RepositorioErro(db).listar_por_bloco(bloco)
+    return erros

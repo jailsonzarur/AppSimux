@@ -19,6 +19,10 @@ class RepositorioErro:
         erros = self.db.query(models.Erro).filter(models.Erro.simulado_id == simulado_id).all()
         return erros
     
+    def listar_por_bloco(self, request: str):
+        erros = self.db.query(models.Erro).filter(models.Erro.bloco == request).all()
+        return erros
+    
     def deletar(self, erro: Erro, simulado_id: int):
         stmt = delete(models.Erro).where(simulado_id == simulado_id)
         self.db.execute(stmt)
