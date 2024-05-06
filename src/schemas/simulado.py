@@ -7,7 +7,7 @@ class Simulado(BaseModel):
     tipo: str
     erros: List[Erro] = []
     data: date
-    id: int = None
+    id: str = None
 
 
     class Config:

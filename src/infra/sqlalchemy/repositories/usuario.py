@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from src.schemas import usuario
 from src.infra.sqlalchemy.models import models
 from src.infra.providers import hash_provider
+from uuid import uuid4
 
 class RepositorioUsuario:
 
@@ -10,7 +11,7 @@ class RepositorioUsuario:
         self.db = db
 
     def criar(self, usuario: usuario.Usuario):
-        db_usuario = models.Usuario(username= usuario.username, senha= hash_provider.gerar_hash(usuario.senha))
+        db_usuario = models.Usuario(id = uuid4() ,username= usuario.username, senha= hash_provider.gerar_hash(usuario.senha))
         self.db.add(db_usuario)
         self.db.commit()
         self.db.refresh(db_usuario)
