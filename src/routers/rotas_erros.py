@@ -20,12 +20,12 @@ def listar_erros(simulado_id: int, usuario: Usuario = Depends(obter_usuario_loga
     erros = RepositorioErro(db).listar(simulado_id)
     return erros
 
-@router.get('/simulados/erros/bloco/{bloco}')
-def listar_erros(bloco: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+@router.get('/simulados/erros/{bloco}')
+def listar_erros_por_bloco(bloco: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     erros = RepositorioErro(db).listar_por_bloco(bloco)
     return erros
 
-@router.get('/simulados/erros/bloco/{bloco}')
-def listar_erros(bloco: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
-    erros = RepositorioErro(db).listar_por_bloco(bloco)
+@router.get('/simulados/erros/{bloco}/{materia}')
+def listar_erros_por_materia(bloco: str, materia:str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+    erros = RepositorioErro(db).listar_por_materia(bloco, materia)
     return erros

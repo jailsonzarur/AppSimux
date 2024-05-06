@@ -23,6 +23,11 @@ class RepositorioErro:
         erros = self.db.query(models.Erro).filter(models.Erro.bloco == request).all()
         return erros
     
-    def deletar(self, erro: Erro, simulado_id: int):
-        stmt = delete(models.Erro).where(simulado_id == simulado_id)
+    def listar_por_materia(self, bloco: str, materia: str):
+        erros = self.db.query(models.Erro).filter(models.Erro.materia == materia and models.Erro.bloco == bloco).all()
+        return erros
+    
+    def deletar(self, simulado_id: int):
+        stmt = delete(models.Erro).where(models.Erro.simulado_id == simulado_id)
         self.db.execute(stmt)
+        self.db.commit()

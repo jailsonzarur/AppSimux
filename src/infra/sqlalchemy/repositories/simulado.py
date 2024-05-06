@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import delete 
 from sqlalchemy.orm import Session
 from src.schemas.simulado import Simulado
 from src.infra.sqlalchemy.models import models
@@ -18,3 +18,8 @@ class RepositorioSimulado:
     def listar(self, usuario_id: int):
         simulados = self.db.query(models.Simulado).filter(models.Simulado.usuario_id == usuario_id).all()
         return simulados
+    
+    def deletar(self, simulado_id: int):
+        stmt = delete(models.Simulado).where(models.Simulado.id == simulado_id)
+        self.db.execute(stmt)
+        self.db.commit()
