@@ -21,7 +21,7 @@ def listar_simulados(usuario: Usuario = Depends(obter_usuario_logado), db: Sessi
     return simulados
 
 @router.delete('/simulados/{id}')
-def deletar_simulados(id: int, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+def deletar_simulados(id: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     RepositorioSimulado(db).deletar(id)  
-    RepositorioErro(db).deletar(id)
+    RepositorioErro(db).deletar_todo_simulado(id)
     return {'Message': "Deletado com sucesso!"}
