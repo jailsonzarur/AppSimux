@@ -15,6 +15,11 @@ def cadastrar_erros(simulado_id: str, erro: Erro, usuario: Usuario = Depends(obt
     erro = RepositorioErro(db).criar(erro, simulado_id)
     return erro
 
+@router.put('/simulados/erros/{erro_id}')
+def editar_erro(erro_id: str, erro: Erro, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+    RepositorioErro(db).editar(erro_id, erro)
+    return {"Message": "Alterado com sucesso!"}
+
 @router.get('/simulados/erros/{simulado_id}')
 def listar_erros(simulado_id: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     erros = RepositorioErro(db).listar(simulado_id)

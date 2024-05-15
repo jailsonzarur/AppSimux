@@ -1,4 +1,4 @@
-from sqlalchemy import delete 
+from sqlalchemy import delete, update
 from sqlalchemy.orm import Session
 from src.schemas.simulado import Simulado
 from src.infra.sqlalchemy.models import models
@@ -22,5 +22,10 @@ class RepositorioSimulado:
     
     def deletar(self, simulado_id: str):
         stmt = delete(models.Simulado).where(models.Simulado.id == simulado_id)
+        self.db.execute(stmt)
+        self.db.commit()
+
+    def editar(self, simulado_id: str, simulado: Simulado):
+        stmt = update(models.Simulado).where(models.Simulado.id == simulado_id).values(tipo=simulado.tipo, data=simulado.data)
         self.db.execute(stmt)
         self.db.commit()

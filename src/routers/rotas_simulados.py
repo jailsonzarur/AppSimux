@@ -20,6 +20,11 @@ def listar_simulados(usuario: Usuario = Depends(obter_usuario_logado), db: Sessi
     simulados = RepositorioSimulado(db).listar(usuario.id)
     return simulados
 
+@router.put('/simulados/{id}')
+def editar_simulado(id: str, simulado: Simulado, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
+    RepositorioSimulado(db).editar(id, simulado)
+    return {'Message': "Atualizado com sucesso!"}
+
 @router.delete('/simulados/{id}')
 def deletar_simulados(id: str, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     RepositorioSimulado(db).deletar(id)  

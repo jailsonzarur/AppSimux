@@ -1,4 +1,4 @@
-from sqlalchemy import delete
+from sqlalchemy import delete, update
 from sqlalchemy.orm import Session
 from src.schemas.erro import Erro
 from src.infra.sqlalchemy.models import models
@@ -35,5 +35,10 @@ class RepositorioErro:
 
     def deletar(self, erro_id: str):
         stmt = delete(models.Erro).where(models.Erro.id == erro_id)
+        self.db.execute(stmt)
+        self.db.commit()
+
+    def editar(self, erro_id: str, erro: Erro):
+        stmt = update(models.Erro).where(models.Erro.id == erro_id).values(materia=erro.materia, assunto=erro.assunto, bloco=erro.bloco)
         self.db.execute(stmt)
         self.db.commit()
