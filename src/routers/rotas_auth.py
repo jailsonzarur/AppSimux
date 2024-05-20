@@ -1,15 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from src.infra.providers import token_provider, hash_provider
 from src.schemas.usuario import Usuario, LoginData, LoginSucesso
 from src.infra.sqlalchemy.config.database import get_bd
 from src.infra.sqlalchemy.repositories.usuario import RepositorioUsuario
 from src.routers.auth_utils import obter_usuario_logado
+from src.jobs.send_email import send_email
 
 router = APIRouter()
 
 @router.post('/signup', status_code=status.HTTP_201_CREATED)
-def signup(usuario: Usuario, db: Session = Depends(get_bd)):
+def signup(usuario: Usuario, background: BackgroundTasks, db: Session = Depends(get_bd)):
     
     usuario_localizado = RepositorioUsuario(db).obter_por_username(usuario.username)
 
@@ -17,6 +18,8 @@ def signup(usuario: Usuario, db: Session = Depends(get_bd)):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Username já existente.')
     
     usuario = RepositorioUsuario(db).criar(usuario)
+    background.add_task(send_email, usuario.username)
+
     return {'Message': 'Usuário cadastrado com sucesso!'}
 
 @router.post('/signin')
