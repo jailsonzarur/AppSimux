@@ -5,16 +5,16 @@ import os
 
 load_dotenv('.env')
 
-def send_email(name: str):
+def send_email(email: str):
     email_body = f"""
-    <h1>Olá {name}!<h1>
+    <h1>Olá {email}!<h1>
     <p> Seja muito bem vindo ao nosso Aplicativo de Simulados!<p>
     """
 
     msg = email.message.Message()
     msg['Subject'] = 'Boas Vindas ao APPSimux'
     msg['From'] = 'jailsoncardoz123@gmail.com'
-    msg['To'] = 'jailson.zarur@ufpi.edu.br'
+    msg['To'] = email
     password = os.getenv('PASSWORD')
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(email_body)
