@@ -10,7 +10,7 @@ from src.jobs.send_email import send_email
 router = APIRouter()
 
 @router.post('/signup', status_code=status.HTTP_201_CREATED)
-def signup(usuario: Usuario, background: BackgroundTasks, db: Session = Depends(get_bd)):
+def signup(usuario: LoginData, background: BackgroundTasks, db: Session = Depends(get_bd)):
     
     usuario_localizado = RepositorioUsuario(db).obter_por_username(usuario.username)
 
