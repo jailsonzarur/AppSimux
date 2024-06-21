@@ -17,19 +17,19 @@ middleware = [
 criar_bd()
 app = FastAPI(middleware=middleware)
 
-@app.get('/')
+@app.get('/', tags=['Home'])
 def home():
     return {"Message": "APPSimux!"}
 
 
 #ROTAS AUTH
-app.include_router(rotas_auth.router, prefix='/auth')
+app.include_router(rotas_auth.router, prefix='/auth', tags=["Auth"])
 
 #ROTAS SIMULADOS
-app.include_router(rotas_simulados.router)
+app.include_router(rotas_simulados.router, tags=["Simulados"])
 
 #ROTAS ERROS
-app.include_router(rotas_erros.router)
+app.include_router(rotas_erros.router, tags=["Erros"])
 
 
 

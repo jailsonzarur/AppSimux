@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from src.infra.providers import token_provider, hash_provider
-from src.schemas.usuario import Usuario, LoginData, LoginSucesso
+from src.schemas.usuario import Usuario, UsuarioInfo,  LoginData, LoginSucesso
 from src.infra.sqlalchemy.config.database import get_bd
 from src.infra.sqlalchemy.repositories.usuario import RepositorioUsuario
 from src.routers.auth_utils import obter_usuario_logado
@@ -40,7 +40,7 @@ def signin(login_data: LoginData, db: Session = Depends(get_bd)):
     token_jwt = token_provider.criar_acess_token({'sub': usuario_localizado.username})
     return LoginSucesso(username=usuario_localizado.username, acess_token=token_jwt)
 
-@router.get('/me', response_model=Usuario)
+@router.get('/me', response_model=UsuarioInfo)
 def my_simulados(usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_bd)):
     return usuario
 

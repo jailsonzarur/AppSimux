@@ -11,6 +11,14 @@ class Usuario(BaseModel):
     class Config:
         from_attributes = True
 
+class UsuarioInfo(BaseModel):
+    id: str = None
+    username: str
+    simulados: List[Simulado] = []
+
+    class Config:
+        from_attributes = True
+
 class SimuladoData(BaseModel):
     simulados: List[Simulado] = []
 
